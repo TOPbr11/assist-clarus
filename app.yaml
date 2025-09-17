@@ -1,0 +1,24 @@
+runtime: nodejs20
+
+env_variables:
+  NODE_ENV: production
+
+handlers:
+- url: /static
+  static_dir: dist/assets
+  secure: always
+
+- url: /(.*\.(js|css|png|jpg|ico|svg))$
+  static_files: dist/\1
+  upload: dist/.*\.(js|css|png|jpg|ico|svg)$
+  secure: always
+
+- url: /.*
+  static_files: dist/index.html
+  upload: dist/index.html
+  secure: always
+
+automatic_scaling:
+  min_instances: 0
+  max_instances: 10
+  target_cpu_utilization: 0.6
